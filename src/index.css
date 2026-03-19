@@ -1,0 +1,210 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Press+Start+2P&family=Noto+Sans+JP:wght@400;700&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+==========================================================================
+【AI HANDOVER NOTE】
+1. DESIGN PHILOSOPHY:
+   - Retro-Future Arcade meets Anime Aesthetics: Combining 8-bit/16-bit era pixel art nostalgia with modern cyberpunk energy
+   - Dark Gritty Combat Arena: High-contrast battlefield with neon cursed energy accents creating visceral impact
+   - Jujutsu Kaisen Visual Language: Deep purples, electric blues, and crimson reds representing cursed energy manifestation
+   - Arcade Cabinet Mentality: Bold typography, scanline effects, CRT glow, instant visual feedback for combat actions
+
+2. TYPOGRAPHY:
+   - Orbitron (Sans): Futuristic geometric font perfect for UI elements, health bars, and combo counters - evokes arcade machine displays with technical precision
+   - Press Start 2P (Mono): Authentic pixel font for retro game text, damage numbers, and system messages - pure nostalgia factor
+   - Noto Sans JP: Japanese character support for authentic anime-inspired UI elements and special move names
+
+3. COLOR SYSTEM:
+   - Brand Primary (H: 260): Deep electric purple representing cursed energy - the core visual signature of Jujutsu Kaisen's power system
+   - Accent Blue (H: 220): Bright cyan-blue for Gojo's Limitless technique and energy effects, creating sharp contrast against dark backgrounds
+   - Destructive Red (H: 10): Intense crimson for damage indicators, critical hits, and Yuji's raw physical attacks
+   - Success Green (H: 150): Neon green for successful blocks, perfect parries, and combo completion
+   - Background: Near-black (L: 0.12) creating a void-like arena where energy effects pop dramatically
+   - Semantic mapping: --primary for cursed energy UI, --accent for special technique highlights, --ring for selection/focus states with glow effect
+
+4. USAGE GUIDE:
+   - Layout: Full-viewport canvas game with fixed HUD overlay - health bars at top corners, character names in retro style
+   - Visual Effects: Use backdrop-blur sparingly for pause menus, apply box-shadow with brand colors for energy auras and hit impacts
+   - Recommended techniques: CSS animations for scanline overlays, text-shadow for neon glow on damage numbers, border with high saturation for active hitboxes
+   - Combat Feedback: Flash --destructive on hit, pulse --accent during special moves, use --success for successful counters
+   - Win Screen: Full-screen overlay with gradient from --background to --primary, large typography with glow effects, pixel-art victory poses
+==========================================================================
+*/
+
+:root {
+  /* Typography */
+  --font-sans: 'Orbitron', 'Noto Sans JP', system-ui, sans-serif;
+  --font-mono: 'Press Start 2P', 'Courier New', monospace;
+  
+  /* Radius */
+  --radius: 0.25rem;
+
+  /* Core UI Tokens */
+  --background: oklch(0.98 0.01 260);
+  --foreground: oklch(0.15 0.02 260);
+  --card: oklch(0.95 0.015 260);
+  --card-foreground: oklch(0.18 0.02 260);
+  --popover: oklch(0.97 0.01 260);
+  --popover-foreground: oklch(0.15 0.02 260);
+  --primary: oklch(0.45 0.22 260);
+  --primary-foreground: oklch(0.98 0.01 260);
+  --secondary: oklch(0.88 0.02 260);
+  --secondary-foreground: oklch(0.22 0.02 260);
+  --muted: oklch(0.92 0.015 260);
+  --muted-foreground: oklch(0.48 0.02 260);
+  --accent: oklch(0.55 0.25 220);
+  --accent-foreground: oklch(0.98 0.01 220);
+  --destructive: oklch(0.52 0.24 10);
+  --destructive-foreground: oklch(0.98 0.01 10);
+  --border: oklch(0.85 0.02 260);
+  --input: oklch(0.88 0.02 260);
+  --ring: oklch(0.45 0.22 260);
+  
+  /* Chart Tokens */
+  --chart-1: oklch(0.55 0.25 220);
+  --chart-2: oklch(0.45 0.22 260);
+  --chart-3: oklch(0.52 0.24 10);
+  --chart-4: oklch(0.58 0.20 150);
+  --chart-5: oklch(0.62 0.18 40);
+  
+  /* Sidebar Tokens */
+  --sidebar: oklch(0.96 0.01 260);
+  --sidebar-foreground: oklch(0.22 0.02 260);
+  --sidebar-primary: oklch(0.45 0.22 260);
+  --sidebar-primary-foreground: oklch(0.98 0.01 260);
+  --sidebar-accent: oklch(0.90 0.02 260);
+  --sidebar-accent-foreground: oklch(0.22 0.02 260);
+  --sidebar-border: oklch(0.88 0.02 260);
+  --sidebar-ring: oklch(0.45 0.22 260);
+}
+
+.dark {
+  --background: oklch(0.12 0.03 260);
+  --foreground: oklch(0.92 0.02 260);
+  --card: oklch(0.16 0.04 260);
+  --card-foreground: oklch(0.90 0.02 260);
+  --popover: oklch(0.14 0.03 260);
+  --popover-foreground: oklch(0.92 0.02 260);
+  --primary: oklch(0.62 0.28 260);
+  --primary-foreground: oklch(0.12 0.03 260);
+  --secondary: oklch(0.25 0.04 260);
+  --secondary-foreground: oklch(0.90 0.02 260);
+  --muted: oklch(0.22 0.04 260);
+  --muted-foreground: oklch(0.65 0.03 260);
+  --accent: oklch(0.68 0.30 220);
+  --accent-foreground: oklch(0.12 0.03 220);
+  --destructive: oklch(0.60 0.28 10);
+  --destructive-foreground: oklch(0.95 0.01 10);
+  --border: oklch(0.28 0.05 260);
+  --input: oklch(0.25 0.04 260);
+  --ring: oklch(0.62 0.28 260);
+  
+  /* Chart Tokens */
+  --chart-1: oklch(0.68 0.30 220);
+  --chart-2: oklch(0.62 0.28 260);
+  --chart-3: oklch(0.60 0.28 10);
+  --chart-4: oklch(0.65 0.24 150);
+  --chart-5: oklch(0.70 0.22 45);
+  
+  /* Sidebar Tokens */
+  --sidebar: oklch(0.14 0.03 260);
+  --sidebar-foreground: oklch(0.88 0.02 260);
+  --sidebar-primary: oklch(0.62 0.28 260);
+  --sidebar-primary-foreground: oklch(0.12 0.03 260);
+  --sidebar-accent: oklch(0.22 0.04 260);
+  --sidebar-accent-foreground: oklch(0.90 0.02 260);
+  --sidebar-border: oklch(0.25 0.04 260);
+  --sidebar-ring: oklch(0.62 0.28 260);
+}
+
+@theme inline {
+  /* Shadcn Core Mapping */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Charts Mapping */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar Mapping */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Typography */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans min-h-screen;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  code, pre {
+    @apply font-mono;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-primary;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40;
+  }
+}
